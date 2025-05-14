@@ -20,8 +20,7 @@ qdrant = QdrantVectorStore(
     collection_name=COLLECTION_NAME,
     embedding=embeddings,
     url=QDRANT_URL,
-    api_key=QDRANT_API_KEY,
-    prefer_grpc=True,
+    api_key=QDRANT_API_KEY
 )
 retriever = qdrant.as_retriever(search_kwargs={"k": 3})
 
