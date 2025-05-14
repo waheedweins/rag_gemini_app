@@ -16,11 +16,19 @@ llm = GoogleGenerativeAI(model='gemini-1.5-flash', temperature=0.7)
 embeddings = GoogleGenerativeAIEmbeddings(model='models/embedding-001')
 
 # Load retriever
+from qdrant_client import QdrantClient
+
+# Create a Qdrant client instance
+qdrant_client = QdrantClient(
+    url=QDRANT_URL,
+    api_key=QDRANT_API_KEY,
+)
+
+# Create QdrantVectorStore
 qdrant = QdrantVectorStore(
+    client=qdrant_client,
     collection_name=COLLECTION_NAME,
     embedding=embeddings,
-    url=QDRANT_URL,
-    api_key=QDRANT_API_KEY
 )
 retriever = qdrant.as_retriever(search_kwargs={"k": 3})
 
